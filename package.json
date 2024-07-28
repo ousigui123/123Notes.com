@@ -1,0 +1,60 @@
+{
+  "name": "stickynotes123",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "fabric": "^5.3.0",
+    "localforage": "^1.10.0",
+    "quill-image-drop-module": "^1.0.3",
+    "quill-image-resize-module": "^3.0.0",
+    "roboto-fontface": "*",
+    "sass": "^1.77.6",
+    "sass-loader": "^14.2.1",
+    "vue": "^2.6.14",
+    "vue-meta-info": "^0.1.7",
+    "vue-quill-editor": "^3.0.6",
+    "vuedraggable": "^2.24.3",
+    "vuetify": "^2.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "@mdi/font": "^7.4.47",
+    "@mdi/js": "^7.4.47",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "font-awesome": "^4.7.0",
+    "material-design-icons-iconfont": "^6.7.0",
+    "vue-cli-plugin-vuetify": "~2.5.8",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

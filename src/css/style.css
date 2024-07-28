@@ -1,0 +1,69 @@
+
+.ql-editor {
+  scrollbar-width: none;   
+}
+.ql-container {
+      line-height: normal !important;
+      height: 340px;
+      width: 350px;
+      min-height: 408px;
+      max-height: 620px;
+      min-width: 350px;
+      max-width: 700px;
+      overflow: hidden;
+      resize: both;	 
+    }
+	
+.drag-container {
+  display: flex; flex-wrap: wrap;   
+}
+
+.drag-item {
+  cursor: move;
+  margin-left: 35px;  
+  margin-right: 30px;   
+  margin-top: 25px;
+  margin-bottom: 30px; 
+}	
+
+::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0;
+  display: none;
+}
+
+
+* {
+  scrollbar-width: none;
+  scrollbar-color: transparent;
+}
+
+.advClass {  
+  margin-left: 50px;  
+  margin-right: 30px;   
+  margin-top: 25px;
+  margin-bottom: 30px; 
+}	
+
+.folder-div {
+  position: absolute; 
+  top: 0px; 
+  left: 0px; 
+  width: 30px;
+}
+
+.folder-item {
+  position: relative;
+  top: -5px;
+  left: -8px;  
+  height: 50px;  
+}
+
+.folder-item-sel {
+  position: relative;
+  top: -5px;
+  left: 5px;  
+  height: 60px;  
+}
+ 
+

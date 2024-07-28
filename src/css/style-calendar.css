@@ -1,0 +1,45 @@
+
+.ql-editor {
+  scrollbar-width: none;   
+}
+.ql-container {
+      line-height: normal !important;
+
+	  height: 350px;
+      min-height: 350px;
+      max-height: 620px;
+
+	  width: 300px;
+      min-width: 300px;
+      max-width: 700px;
+
+      overflow: hidden;
+      resize: both;	 
+    }
+	
+.drag-container {
+  display: flex; flex-wrap: wrap;   
+}
+
+.drag-item {
+  cursor: move;
+  margin-left: 35px;  
+  margin-right: 30px;   
+  margin-top: 25px;
+  margin-bottom: 30px; 
+}	
+
+::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0;
+  display: none;
+}
+
+
+* {
+  scrollbar-width: none;
+  scrollbar-color: transparent;
+}
+ 
+ 
+
