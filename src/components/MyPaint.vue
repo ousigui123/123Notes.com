@@ -3,7 +3,7 @@
 
     <v-sheet elevation="5" width="100%" height="100%" >
         <v-row  align="center" justify="center">            
-            <canvas id="canvasFrame"  width="1900px" height="1000px"></canvas>
+            <canvas id="canvasFrame"  :width="canvasWidth" :height="canvasHeight"></canvas>
 		</v-row> 
     </v-sheet>
 	
@@ -33,7 +33,7 @@
               </template>
               <v-list>              
                 <v-list-item> <v-icon small @click="doRenamePage(pageSel)">mdi-rename-box-outline</v-icon> </v-list-item>
-                <v-list-item> <v-icon small @click="doDeletePage(pageSel)">mdi-file-remove-outline</v-icon> </v-list-item>                		
+                <v-list-item> <v-icon small @click="doDeletePage(pageSel)">mdi-window-close</v-icon> </v-list-item>                		
               </v-list>
             </v-menu> 
           </v-col>
@@ -146,12 +146,15 @@
 <script>
   import localforage from 'localforage'
   import { fabric } from 'fabric'
+  import CryptoJS from 'crypto-js' 
 
   
   export default {
     name: 'MyPaint',
 
     data: () => ({      
+      canvasWidth: '1900px',
+      canvasHeight: '1000px',	  
       lastX: 0,
       lastY: 0,
       lastPointer: null,
@@ -182,13 +185,26 @@
      bgMode: 0,
     }),
 	
-	mounted: function () {        
+    created: function (){
+       window.addEventListener('resize', this.getScreenSize)
+       this.getScreenSize();
+    },
+	destroyed: function() {
+      window.removeEventListener('resize', this.getScreenSize)
+    },
+	
+	mounted: function () {               
        this.getMyCanvas()
        //this.getCanvasData(this.pageSel) //is included in getPagesList() procedure
        this.getPagesList()
 	},
 	
 	methods: {
+       getScreenSize(){
+        this.canvasWidth  = window.screen.width
+        this.canvasHeight = window.screen.height
+       },
+	
       getMyCanvas() {
         this.myCanvas = new fabric.Canvas('canvasFrame')
         this.myCanvas.isDrawingMode = false	
@@ -196,6 +212,7 @@
         this.myCanvas.on("mouse:move", this.mousemoveEvent)		
         this.myCanvas.on("mouse:up", this.mouseupEvent)		
         this.myCanvas.on("mouse:out", this.mouseoutEvent)			
+        this.myCanvas.setBackgroundImage('bg1.jpg', this.myCanvas.renderAll.bind(this.myCanvas), {left: 100,top: 70,originX: 'left', originY: 'top', scaleX: 1.2*(this.canvasWidth / 1920), scaleY: 1*(this.canvasHeight / 1080),}) 
       },
 
 			
@@ -613,7 +630,7 @@
             stroke: this.myCanvas.freeDrawingBrush.color,
             strokeWidth: this.myCanvas.freeDrawingBrush.width,
             strokeDashArray: this.myCanvas.freeDrawingBrush.strokeDashArray,
-            fill: 'transparent',	                    		
+            fill: 'transparent',	
         })
       },
   
@@ -676,7 +693,7 @@
         return new fabric.Line([this.lastPointer.x, this.lastPointer.y, e.pointer.x, e.pointer.y], {            
            stroke: this.myCanvas.freeDrawingBrush.color,
            strokeWidth: this.myCanvas.freeDrawingBrush.width,
-           strokeDashArray: this.myCanvas.freeDrawingBrush.strokeDashArray,           
+           strokeDashArray: this.myCanvas.freeDrawingBrush.strokeDashArray, 
           })	  
       },
 
@@ -990,8 +1007,8 @@
  
       setBg(){
           if(!this.myCanvas.backgroundImage){
-            if ((this.bgMode % 2) == 0) { this.myCanvas.setBackgroundImage('bg1.jpg', this.myCanvas.renderAll.bind(this.myCanvas), {left: 100,top: 70,originX: 'left', originY: 'top', scaleX: 1.2, scaleY: 1,})  }
-            else {this.myCanvas.setBackgroundImage('bg2.png', this.myCanvas.renderAll.bind(this.myCanvas), {left: 100,top: 70,originX: 'left', originY: 'top', scaleX: 1.6, scaleY: 1.1,}) }
+            if ((this.bgMode % 2) == 0) { this.myCanvas.setBackgroundImage('bg1.jpg', this.myCanvas.renderAll.bind(this.myCanvas), {left: 100,top: 70,originX: 'left', originY: 'top', scaleX: 1.2*(this.canvasWidth / 1920), scaleY: 1*(this.canvasHeight / 1080),})  }
+            else {this.myCanvas.setBackgroundImage('bg2.png', this.myCanvas.renderAll.bind(this.myCanvas), {left: 100,top: 70,originX: 'left', originY: 'top', scaleX: 1.6*(this.canvasWidth / 1920), scaleY: 1.1*(this.canvasHeight / 1080),}) }
             this.bgMode++
           }else{
             this.myCanvas.setBackgroundImage(null, this.myCanvas.renderAll.bind(this.myCanvas))
@@ -999,11 +1016,14 @@
       },
 
       doSaveAsFile(){
-        const dataJson = JSON.stringify(this.myCanvas.toJSON())
-        const blobJson = new Blob([dataJson], { type: 'application/json' })	
+        const dataJson =  JSON.stringify(this.myCanvas.toJSON())        
+        const sSource = CryptoJS.enc.Utf8.parse(dataJson)
+		const sKey = CryptoJS.enc.Utf8.parse('1234567812345678')
+        const encryptDataJson = CryptoJS.AES.encrypt( sSource,sKey,{mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7}).toString()
+        const blobJson = new Blob([encryptDataJson], { type: 'application/json' })	
         const dataURL = URL.createObjectURL(blobJson)		
         const exportFileLink = document.createElement('a')
-          exportFileLink.download = this.pageSel.pageName+'new.123notes'
+          exportFileLink.download = this.pageSel.pageName+'new.123notespen'
           exportFileLink.href = dataURL
           document.body.appendChild(exportFileLink)
           exportFileLink.click()
@@ -1032,12 +1052,15 @@
         const that = this
         const inputFile = document.createElement('input')
         inputFile.type = 'file'
-        inputFile.accept ='.123notes'
+        inputFile.accept ='.123notespen'
         inputFile.addEventListener('change',function(event){
            const jsonFile =event.target.files[0]
            const reader = new FileReader()		
            reader.onload = function(event){
-              const jsonData = JSON.parse(event.target.result)
+              const sKey = CryptoJS.enc.Utf8.parse('1234567812345678')
+              const dencryptSource =CryptoJS.AES.decrypt(event.target.result,sKey,{mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})  
+              const dencryptData=CryptoJS.enc.Utf8.stringify(dencryptSource).toString()
+              const jsonData = JSON.parse(dencryptData)
               if (jsonData !== null ) { 
                  that.doNewPage()
                  that.myCanvas.loadFromJSON(jsonData)
@@ -1056,7 +1079,8 @@
 <style>
 canvas {
   border: 1px solid #000;
-}
+  }
+
 
 
 </style>

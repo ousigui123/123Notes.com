@@ -28,14 +28,20 @@
           </div>
 		</div>
 		
+        <!--<div>
+          <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 480px; right: -10px; bottom-radius: 1px; z-index: 3;">
+            <v-btn @click="shiftPaintView"><v-icon x-samll>mdi-key-chain</v-icon><v-icon x-samll>mdi-bitcoin</v-icon> </v-btn>
+          </v-card>
+        </div>-->
+		
         <div>
-          <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 240px; right: -15px; bottom-radius: 1px; z-index: 3;">
+          <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 240px; right: -10px; bottom-radius: 1px; z-index: 3;">
             <v-btn @click="shiftPaintView"><v-icon x-samll>mdi-draw-pen</v-icon></v-btn>
           </v-card>
         </div>
 		
         <div>
-          <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 180px; right: -20px; bottom-radius: 2px; z-index: 1;">
+          <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 180px; right: -15px; bottom-radius: 2px; z-index: 1;">
             <v-btn @click="shiftCalendarView"><v-icon x-samll>mdi-calendar-month-outline</v-icon></v-btn>
           </v-card>
         </div>
