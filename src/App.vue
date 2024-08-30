@@ -4,6 +4,7 @@
 
         <CalendarNotes v-if="viewIndex == 1 "/>
         <MyPaint v-else-if="viewIndex == 2"/>
+        <MyWord v-else-if="viewIndex == 3"/>
         <MyNotes v-else/>
 
 		<div style="display: flex; flex-wrap: wrap;">
@@ -28,15 +29,15 @@
           </div>
 		</div>
 		
-        <!--<div>
-          <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 480px; right: -10px; bottom-radius: 1px; z-index: 3;">
-            <v-btn @click="shiftPaintView"><v-icon x-samll>mdi-key-chain</v-icon><v-icon x-samll>mdi-bitcoin</v-icon> </v-btn>
+        <div>
+          <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 300px; right: -10px; bottom-radius: 1px; z-index: 3;">
+            <v-btn @click="shiftPaintView"><v-icon x-samll>mdi-draw-pen</v-icon></v-btn>
           </v-card>
-        </div>-->
+        </div>
 		
         <div>
           <v-card class="py-0 px-0" color="rgba(0, 0, 0, .3)" min-width="25" style="position: fixed; bottom: 240px; right: -10px; bottom-radius: 1px; z-index: 3;">
-            <v-btn @click="shiftPaintView"><v-icon x-samll>mdi-draw-pen</v-icon></v-btn>
+            <v-btn @click="shiftWordView"><v-icon x-samll>mdi-text-box-edit-outline</v-icon></v-btn>
           </v-card>
         </div>
 		
@@ -59,25 +60,20 @@
 <script>
 //import '@/styles/overrides.sass'
 import './css/style.css'
-import MyNotes from './components/MyNotes'
-import CalendarNotes from './components/CalendarNotes'
-import MyPaint from './components/MyPaint'
+//import MyNotes from './components/MyNotes'
+//import CalendarNotes from './components/CalendarNotes'
+//import MyPaint from './components/MyPaint'
+//import MyWord from './components/MyWord'
 
 export default {
   name: 'App',
 
   components: {
-    MyNotes,CalendarNotes,MyPaint,
-  },
-  metaInfo: {
-      title: '123Notes.com --Sticky Notes,Note,OneNote,Keep,Sticky Note',
-      titleTemplate: '%s | 123Notes',
-      htmlAttrs: { lang: 'en' },
-      meta: [
-        { name: 'keywords', content: 'Sticky Notes,123 Notes,Note,Sticky Note,OneNote,Keep' },
-		{ name: 'description', content: 'Sticky Notes,123 Notes,Note,Sticky Note,OneNote,Keep' },
-		{ charset: 'utf-8' },
-      ],
+    //MyNotes,CalendarNotes,MyPaint, MyWord,
+    MyNotes: () => import('./components/MyNotes'),
+    CalendarNotes: () => import('./components/CalendarNotes'),
+    MyPaint: () => import('./components/MyPaint'),
+    MyWord: () => import('./components/MyWord'),
   },
  
   data: () => ({    
@@ -103,6 +99,12 @@ export default {
         localStorage.setItem('viewIndex',this.viewIndex)
       },
 
+      shiftWordView() {
+        if (this.viewIndex == 3 ) {this.viewIndex = 0}
+		else {this.viewIndex = 3}
+        localStorage.setItem('viewIndex',this.viewIndex)
+      },
+
       resumeView () {        
         this.viewIndex = localStorage.getItem('viewIndex') 
         if (this.viewIndex == null ){ this.viewIndex = 0 }
@@ -116,7 +118,8 @@ export default {
 
       resumeTheme () {
         const themeDark = localStorage.getItem('themeDark')
-        this.$vuetify.theme.dark = (themeDark == 1)        
+        if (themeDark == null){ this.$vuetify.theme.dark = true}  
+		else{ this.$vuetify.theme.dark = (themeDark == 1)}
       },
   },
  

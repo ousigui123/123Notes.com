@@ -4,14 +4,70 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Sticky Notes,Note,OneNote,Google Keep,Sticky Note,Note App,Paint,Canvas,whiteboard, blackboard,便利贴,便签,笔记,画板,画布,画笔,白板,黑板,便利贴APP,便签APP,笔记APP,便利贴软件,便签软件,笔记软件,文档,印象笔记,notion,evernote,Notability,Easy Note,trello,notepad,check list,todo list,待办事项"/>
+    <meta name="keywords" content="Sticky Notes,Note,OneNote,Google Keep,Sticky Note,Note App,Paint,Canvas,whiteboard, blackboard,便利贴,便签,笔记,画板,画布,画笔,白板,黑板,便利贴APP,便签APP,笔记APP,便利贴软件,便签软件,笔记软件,文档,印象笔记,notion,evernote,Notability,Easy Note,trello,notepad,check list,todo list,待办事项"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="123Notes.com --Sticky Notes"/>
+    <meta property="og:description" content="Sticky Notes,Note,OneNote,Google Keep,Sticky Note,Note App,Paint,Canvas,whiteboard, blackboard,便利贴,便签,笔记,画板,画布,画笔,白板,黑板,便利贴APP,便签APP,笔记APP,便利贴软件,便签软件,笔记软件,文档,印象笔记,notion,evernote,Notability,Easy Note,trello,notepad,check list,todo list,待办事项"/>
+    <meta property="og:image" content="https://www.123notes.com/logo.png"/>
+    <meta property="og:site_name" content="123Notes.com"/>
+    <meta name="twitter:creator" content="@123Notes"/>
+    <meta property="twitter:card" content="website"/>
+    <meta property="twitter:title" content="123Notes.com --Sticky Notes"/>
+    <meta property="twitter:description" content="Sticky Notes,Note,OneNote,Google Keep,Sticky Note,Note App,Paint,Canvas,whiteboard, blackboard,便利贴,便签,笔记,画板,画布,画笔,白板,黑板,便利贴APP,便签APP,笔记APP,便利贴软件,便签软件,笔记软件,文档,印象笔记,notion,evernote,Notability,Easy Note,trello,notepad,check list,todo list,待办事项"/>
+    <meta property="twitter:image" content="https://www.123notes.com/logo.png"/>
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>123Notes.com --Sticky Notes,Note,OneNote,Google Keep,Sticky Note,Note App,Paint,Canvas,whiteboard, blackboard,便利贴,便签,笔记,画板,画布,画笔,白板,黑板,便利贴APP,便签APP,笔记APP,便利贴软件,便签软件,笔记软件,文档,印象笔记,notion,evernote,Notability,Easy Note,trello,notepad,check list,todo list,待办事项</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.7.2/dist/vuetify.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.core.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+	<!--<link href="https://cdn.jsdelivr.net/npm/quill-emoji@0.2.0/dist/quill-emoji.css" rel="stylesheet">-->	
+	<link href="https://cdn.jsdelivr.net/npm/ckeditor5@43.0.0/dist/ckeditor5.css" rel="stylesheet">
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+	<script>!window.Vue &&  document.write(unescape('%3Cscript src="./static/js/vue.min.js"%3E%3C/script%3E'))</script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.7.2/dist/vuetify.min.js"></script>		
+	<script>!window.Vuetify &&  document.write(unescape('%3Clink href="./static/css/vuetify.min.css" rel="stylesheet"%3E%3C/link%3E'))</script>
+	<script>!window.Vuetify &&  document.write(unescape('%3Clink href="./static/css/materialdesignicons.min.css" rel="stylesheet"%3E%3C/link%3E'))</script>
+	<script>!window.Vuetify &&  document.write(unescape('%3Cscript src="./static/js/vuetify.min.js"%3E%3C/script%3E'))</script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/crypto-js@4.2.0/crypto-js.js"></script>	
+	<script>!window.CryptoJS && document.write(unescape('%3Cscript src="./static/js/crypto-js.js"%3E%3C/script%3E'))</script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>	
+	<script>!window.fabric && document.write(unescape('%3Cscript src="./static/js/fabric.min.js"%3E%3C/script%3E'))</script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
+	<script>!window.localforage && document.write(unescape('%3Cscript src="./static/js/localforage.min.js"%3E%3C/script%3E'))</script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.2/Sortable.min.js"></script>	
+	<script>!window.Sortable && document.write(unescape('%3Cscript src="./static/js/Sortable.min.js"%3E%3C/script%3E'))</script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/vuedraggable@2.24.3/dist/vuedraggable.umd.min.js"></script>
+	<script>!window.vuedraggable && document.write(unescape('%3Cscript src="./static/js/vuedraggable.umd.min.js"%3E%3C/script%3E'))</script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>	  	
+	<script>!window.Quill && document.write(unescape('%3Clink href="./static/css/quill.core.css" rel="stylesheet"%3E%3C/link%3E'))</script>
+	<script>!window.Quill && document.write(unescape('%3Clink href="./static/css/quill.snow.css" rel="stylesheet"%3E%3C/link%3E'))</script>	
+	<script>!window.Quill && document.write(unescape('%3Cscript src="./static/js/quill.min.js"%3E%3C/script%3E'))</script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue-quill-editor@3.0.6/dist/vue-quill-editor.js"></script>	  
+	<script>!window.VueQuillEditor && document.write(unescape('%3Cscript src="./static/js/vue-quill-editor.js"%3E%3C/script%3E'))</script>
+	
+	<!--<script src="https://cdn.jsdelivr.net/npm/quill-emoji@0.2.0/dist/quill-emoji.js"></script>	  
+	<script>!window.QuillEmoji && document.write(unescape('%3Cscript src="./static/js/quill-emoji.js"%3E%3C/script%3E'))</script>
+    <script>!window.QuillEmoji && document.write(unescape('%3Clink href="./static/css/quill-emoji.css" rel="stylesheet"%3E%3C/link%3E'))</script>-->
+
   </head>
-  <body>
+  <body>	
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong><strong>Sticky Notes,Note,OneNote,Google Keep,Sticky Note,Note App,Paint,Canvas,whiteboard, blackboard,便利贴,便签,笔记,画板,画布,画笔,白板,黑板,便利贴APP,便签APP,笔记APP,便利贴软件,便签软件,笔记软件,文档,印象笔记,notion,evernote,Notability,Easy Note,trello,notepad,check list,todo list,待办事项</strong></strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    	
   </body>
 </html>

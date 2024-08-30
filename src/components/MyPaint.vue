@@ -96,13 +96,13 @@
             </template>
             <v-list>
               <v-list-item>          
-                <v-avatar color="black" size="3" @click="setPenWidth(1)"></v-avatar> <v-avatar size="10"/>                
-                <v-avatar color="black" size="5" @click="setPenWidth(5)"></v-avatar> <v-avatar size="10"/>             
-                <v-avatar color="black" size="10" @click="setPenWidth(10)"></v-avatar> <v-avatar size="10"/>
-                <v-avatar color="black" size="15" @click="setPenWidth(15)"></v-avatar> <v-avatar size="10"/>
-                <v-avatar color="black" size="20" @click="setPenWidth(20)"></v-avatar> <v-avatar size="10"/>				 
-                <v-avatar color="black" size="25" @click="setPenWidth(25)"></v-avatar> <v-avatar size="10"/>			
-                <v-avatar color="black" size="30" @click="setPenWidth(30)"></v-avatar> <v-avatar size="10"/>
+                <v-btn x-small width="8" @click="setPenWidth(1)"><v-avatar color="black" size="3" @click="setPenWidth(1)"></v-avatar> </v-btn>                
+                <v-btn x-small width="8" @click="setPenWidth(5)"><v-avatar color="black" size="5" @click="setPenWidth(5)"></v-avatar> </v-btn>
+                <v-btn x-small width="8" @click="setPenWidth(10)"><v-avatar color="black" size="10" @click="setPenWidth(10)"></v-avatar> </v-btn>
+                <v-btn x-small width="8" @click="setPenWidth(15)"><v-avatar color="black" size="15" @click="setPenWidth(15)"></v-avatar> </v-btn>
+                <v-btn x-small width="8" @click="setPenWidth(20)"><v-avatar color="black" size="20" @click="setPenWidth(20)"></v-avatar> </v-btn>
+                <v-btn x-small width="8" @click="setPenWidth(25)"><v-avatar color="black" size="25" @click="setPenWidth(25)"></v-avatar> </v-btn>
+                <v-btn x-small width="8" @click="setPenWidth(30)"><v-avatar color="black" size="30" @click="setPenWidth(30)"></v-avatar> </v-btn>
               </v-list-item>
               <v-list-item>          
                 <input type="number" v-model="penWidth" @change="setPenWidth(penWidth)"/>	
@@ -145,7 +145,7 @@
 
 <script>
   import localforage from 'localforage'
-  import { fabric } from 'fabric'
+  import  fabric  from 'fabric'
   import CryptoJS from 'crypto-js' 
 
   

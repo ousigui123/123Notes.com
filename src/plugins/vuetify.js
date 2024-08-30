@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
-//import ripple from 'vuetify/lib/directives/ripple'
-//import '@mdi/font/css/materialdesignicons.css'
+
+//import 'vuetify/dist/vuetify.min.css';
+
 
 Vue.use(Vuetify);
 
 export default new Vuetify({
   theme: {
-    dark: false,
+    dark: true,
     themes: {
       dark: {
         primary: '#E91E63',

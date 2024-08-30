@@ -9,12 +9,12 @@
       </div>
     </div>
   
-	<draggable v-model="items" class="drag-container" animation="300" >	
+	<draggable v-model="items" class="drag-container" animation="300"  v-if="viewMode == false ">	
       <div v-for="(item,i) in items" :key="i" class="drag-item">
-        <v-card elevation="15" :color="item.color" min-width="350px" min-height="408px"  max-width="700px" max-height="700px" light>          
+        <v-card elevation="15" :color="item.color" min-width="350px" min-height="408px"  max-width="700px" max-height="700px" light>                    
           <quill-editor ref="myQuillEditor" v-model="item.value" :options="editorOption" @blur="saveNote(currentPageNo)"/>
           <v-row  align="center" justify="end">
-            <v-card-title>
+            <v-card-title>                              
                <v-icon small @click="doNothing()">mdi-content-save</v-icon>
                <v-icon x-small @click="doCopy(i)">mdi-content-copy</v-icon>
                <v-icon x-small @click="doNothing()">mdi-share-variant</v-icon>
@@ -55,11 +55,20 @@
         </v-card>
       </div>	
   </draggable>
+  <div v-else>
+    <v-card class="py-2 px-2" elevation="2" width="85%" style="position: relative; top: 20px; left: 60px;">          
+         <v-card-title>
+           Page {{currentPageNo}}
+         </v-card-title>		 
+         <div v-html="currentPageContent"></div>
+    </v-card>
+  </div>  
 	
     <div>
       <v-card class="py-2 px-1" elevation="2" width="30px" style="position: fixed; top: -3px; right: -2px;"> 
           <v-icon dense @click="doOpenFile">mdi-folder-open-outline</v-icon>
           <v-icon dense @click="doSaveAsFile">mdi-share</v-icon>
+          <v-icon dense @click="swiftPageViewMode">mdi-book-open-variant-outline</v-icon>
       </v-card>
 	</div>
 	
@@ -77,18 +86,24 @@
 <script>
   import localforage from 'localforage'
   
-  import 'quill/dist/quill.core.css'
-  import 'quill/dist/quill.snow.css'
-  import 'quill/dist/quill.bubble.css'
-  import {quillEditor,Quill} from 'vue-quill-editor'
+  //import 'quill/dist/quill.core.css'
+  //import 'quill/dist/quill.snow.css'
+  
+  import {quillEditor} from 'vue-quill-editor'
   
   import draggable from 'vuedraggable'
   
-  //import Quill from 'quill'
+  import Quill from 'quill'
   import ImageResize from 'quill-image-resize-module'
-  import { ImageDrop } from 'quill-image-drop-module'
+  //import { ImageDrop } from 'quill-image-drop-module'
   Quill.register('modules/imageResize', ImageResize)
-  Quill.register('modules/imageDrop', ImageDrop)
+  //Quill.register('modules/imageDrop', ImageDrop)
+
+  //import QuillEmoji from 'quill-emoji'
+  //import 'quill-emoji/dist/quill-emoji.css'
+  //Quill.register('modules/quillEmoji', QuillEmoji)
+  
+  
   import '../css/style.css'
   
   import CryptoJS from 'crypto-js' 
@@ -99,6 +114,7 @@
       quillEditor,draggable,
     },
     data: () => ({
+       viewMode: false,
        items: [],
        iniItems: [
         {
@@ -139,8 +155,9 @@
         },
       ],
    
-      currentPageNo: '1',
-      
+      currentPageNo: '1',      
+      currentPageContent: '',
+
       folderItems: [
        {id:'1',color:'#dddddd',sel:true,},{id:'2',color:'#aadddd',sel:false,},{id:'3',color:'#dddddd',sel:false,},{id:'4',color:'#eecc00',sel:false,},{id:'5',color:'#dddddd',sel:false,},{id:'6',color:'#dddddd',sel:false,},{id:'7',color:'#ddaaaa',sel:false,},{id:'8',color:'#dddddd',sel:false,},{id:'9',color:'#dddddd',sel:false,},{id:'A',color:'#888888',sel:false,},{id:'B',color:'#8888aa',sel:false,},{id:'C',color:'#66dddd',sel:false,},{id:'D',color:'#dddddd',sel:false,},{id:'E',color:'#dddddd',sel:false,},{id:'F',color:'#dddddd',sel:false,},{id:'G',color:'#dddddd',sel:false,},{id:'H',color:'#11dd55',sel:false,},{id:'I',color:'#dddddd',sel:false,},{id:'J',color:'#dddddd',sel:false,},{id:'K',color:'#9900dd',sel:false,},
       ],
@@ -149,23 +166,24 @@
       editorOption: {
         theme: 'snow',
         modules: {
-         toolbar: [
-           ['bold','strike','clean'],
-           [{list: 'ordered'},{list: 'check'}],           
-           //[{color:[]} ,{background:[]}],
-           [{color:[]}],
-           ['image'],           
-         ],
-         imageDrop: true,
-         imageResize: {displaySize: true},
+          toolbar: [
+            ['bold','strike'],
+            [{list: 'ordered'},{list: 'check'}],           
+            [{color:[]} ,{background:[]}],
+            //[{color:[]}],
+            ['image'], 
+            //['emoji'],               
+          ],
+          //imageDrop: true,
+          imageResize: {displaySize: true},          
+          //'emoji-toolbar': true,
+          //'emoji-shortname': true, 
+          
         },
-        placeholder: 'Input text...',
+        placeholder: 'Input text...',        
       },
  
-      adEditorOption: {
-        theme: 'snow',
-        modules: {toolbar: [ ],},        
-      },
+      
  
     }),
 	
@@ -184,9 +202,10 @@
                 this.items = JSON.parse(JSON.stringify(this.iniItems))
               }else{
                 this.items =tempItems
-              }                          
+              }			  
 			}
-            this.currentPageNo = pageNo			
+            this.currentPageNo = pageNo	
+            this.setPageContent()			
           }).catch(err => {
             console.log(err)
           })		   		  
@@ -233,9 +252,26 @@
         const item = new ClipboardItem({ 'text/html': data })
         navigator.clipboard.write([item])
       },
-      
+
+            
       setNoteBgColor(item,iColor){
         item.color = iColor
+      },
+      
+      swiftPageViewMode(){
+         this.viewMode = ! this.viewMode
+         this.setPageContent()
+      },
+
+      setPageContent(){                
+        if (! this.viewMode) return        
+        let value=''
+        this.items.forEach((item)=>{
+           if ((item.value !==null)&&( item.value !== undefined)){
+             value =value +'<p/>'+ item.value
+           } 
+        })
+        this.currentPageContent  = value		
       },
 
       
@@ -269,7 +305,8 @@
               const sKey = CryptoJS.enc.Utf8.parse('1234567812345678')
               const dencryptSource =CryptoJS.AES.decrypt(event.target.result,sKey,{mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})  
               const dencryptData=CryptoJS.enc.Utf8.stringify(dencryptSource).toString()
-              that.items = JSON.parse(dencryptData)                           
+              that.items = JSON.parse(dencryptData)  
+              that.setPageContent()			  
            }
            reader.readAsText(jsonFile)
         })
