@@ -278,7 +278,7 @@
       doSaveAsFile(){
         const dataJson =  JSON.stringify(this.items)        
         const sSource = CryptoJS.enc.Utf8.parse(dataJson)
-		const sKey = CryptoJS.enc.Utf8.parse('1234567812345678')
+		const sKey = CryptoJS.enc.Utf8.parse('**********')  //'*******your key if you want your site and 123notes.com can open same file ,keep the password to 123notes's password,write email ousigui@gmail.com to get  the password*************')
         const encryptDataJson = CryptoJS.AES.encrypt( sSource,sKey,{mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7}).toString()
         const blobJson = new Blob([encryptDataJson], { type: 'application/json' })	
         const dataURL = URL.createObjectURL(blobJson)		
@@ -302,7 +302,7 @@
            const jsonFile =event.target.files[0]
            const reader = new FileReader()		
            reader.onload = function(event){
-              const sKey = CryptoJS.enc.Utf8.parse('1234567812345678')
+              const sKey = CryptoJS.enc.Utf8.parse('**********')  //'*******your key if you want your site and 123notes.com can open same file ,keep the password to 123notes's password,write email ousigui@gmail.com to get  the password*************')
               const dencryptSource =CryptoJS.AES.decrypt(event.target.result,sKey,{mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})  
               const dencryptData=CryptoJS.enc.Utf8.stringify(dencryptSource).toString()
               that.items = JSON.parse(dencryptData)  
